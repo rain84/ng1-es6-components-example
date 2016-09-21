@@ -1,0 +1,87 @@
+<div md-whiteframe="12" layout="column" layout-padding flex="auto">
+
+  <div ng-if="$ctrl.isUsersReady" ng-show="$ctrl.isNgReady">
+    <div flex="100" layout layout-align="space-between center">
+      <md-input-container class="md-icon-float md-block" flex="20">
+        <label for="filter">Filter</label>
+        <md-icon>filter</md-icon>
+        <input id="filter" ng-model="$ctrl.filter" type="text">
+      </md-input-container>
+
+      <span ng-if="$ctrl.showAs === 'table'">Amount of users : <span ng-bind="$ctrl.rowsCount"></span></span>
+
+      <md-radio-group ng-model="$ctrl.showAs"
+                      layout layout-align="end center">
+        <md-radio-button value="table" class="md-primary">Table</md-radio-button>
+        <md-radio-button value="card">Cards</md-radio-button>
+        <md-radio-button value="group">Groups</md-radio-button>
+      </md-radio-group>
+    </div>
+
+    <div ng-if="$ctrl.showAs === 'group'">
+      <md-checkbox
+        ng-checked="group.isChecked" ng-click="$ctrl.toggleGroup(group)"
+        ng-repeat="group in $ctrl.groups"
+      > {{::group.name }}
+      </md-checkbox>
+    </div>
+
+    <div ng-show="$ctrl.showAs === 'table'">
+      <ui-table rows="$ctrl.users" filter-by="$ctrl.filter" on-rows-updated="$ctrl.updateCount(rowsCount)">
+        <ui-table-column row-prop="name" sort-by="desc">Name</ui-table-column>
+        <ui-table-column row-prop="nick" active>Nickname</ui-table-column>
+        <ui-table-column row-prop="group">Nickname</ui-table-column>
+        <ui-table-column row-prop="city">City</ui-table-column>
+        <ui-table-column row-prop="dob">Birthday</ui-table-column>
+        <ui-table-column row-prop="mail">E-mail</ui-table-column>
+      </ui-table>
+    </div>
+
+    <md-grid-list ng-show="$ctrl.showAs === 'card'" class="card"
+                  md-cols="2" md-gutter="4px"
+                  md-cols-gt-xs="4" md-gutter-gt-xs="4px"
+                  md-cols-gt-sm="5" md-gutter-gt-sm="16px"
+                  md-cols-gt-md="6" md-gutter-gt-md="16px"
+                  md-row-height="1:1"
+    >
+      <md-grid-tile
+        ng-repeat="user in $ctrl.users | filter:$ctrl.filter track by user.id"
+      >
+        <md-grid-tile-header>
+          <h3 class="text-center md-title">{{$index+1}}. {{::user.name}}</h3>
+        </md-grid-tile-header>
+        <md-icon flex-auto class="card--user-icon text-center">face</md-icon>
+        <md-grid-tile-footer>
+          <p class="text-center">{{::user.group}}</p>
+          <p class="text-center"><a ng-href="mailto:{{::user.mail}}" target="_blank">{{::user.mail}}</a></p>
+        </md-grid-tile-footer>
+      </md-grid-tile>
+    </md-grid-list>
+
+    <div ng-show="$ctrl.showAs === 'group'" layout layout-align="start start" class="group">
+      <div class="md-whiteframe-1dp group-panel" flex="33"
+           ng-if="group.isChecked"
+           ng-repeat="group in $ctrl.groups"
+      >
+        <div class="caption md-whiteframe-2dp">
+          <h2>{{::group.name}}</h2>
+        </div>
+
+        <md-list>
+          <md-list-item ng-repeat="user in $ctrl.usersByGroups[group.name]|filter:$ctrl.filter track by user.id">
+            <div>
+              <h3>{{$index+1}}. {{::user.name}}</h3>
+              <p class="aka">a.k.a "{{::user.nick}}"</p>
+            </div>
+            <md-divider></md-divider>
+          </md-list-item>
+        </md-list>
+      </div>
+    </div>
+  </div>
+
+  <div ng-if="$ctrl.isUsersReady" layout="row" layout-sm="column" layout-align="space-around">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+  </div>
+
+</div>

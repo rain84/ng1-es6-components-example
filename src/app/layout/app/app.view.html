@@ -1,0 +1,15 @@
+<md-toolbar layout="row" layout-align="space-between top">
+  <p flex="50" class="md-title">Kaspersky JS-task. Page: "{{$ctrl.page.name|capitalize}}"</p>
+
+  <div layout="row" layout-align="space-between top">
+    <md-button class="md-raised md-title"
+               ng-repeat="page in $ctrl.page.all"
+               ui-sref="app.{{page}}"
+               ng-class="{'md-warn': $ctrl.page.isCurrent(page)}"
+    >{{::page}}
+    </md-button>
+
+  </div>
+</md-toolbar>
+
+<div layout="column" layout-padding flex="100" ui-view></div>

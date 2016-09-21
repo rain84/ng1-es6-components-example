@@ -1,0 +1,36 @@
+$colorPrimary : teal;
+$colorWarn : rgb(255, 87, 34);
+
+@mixin setVerticalMargin($margin:0, $marginFist:0, $marginLast:0) {
+  & {
+    margin   : {
+      top    : $margin;
+      bottom : $margin;
+    }
+
+    :first-of-type {
+      margin-top : $marginFist;
+    }
+
+    :last-of-type {
+      margin-bottom : $marginLast;
+    }
+  }
+}
+
+@mixin setHorizontalMargin($margin:0, $marginFist:0, $marginLast:0) {
+  & {
+    margin  : {
+      left  : $margin;
+      right : $margin;
+    }
+
+    :first-of-type {
+      margin-left : $marginFist;
+    }
+
+    :last-of-type {
+      margin-right : $marginLast;
+    }
+  }
+}

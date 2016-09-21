@@ -1,0 +1,35 @@
+<div ng-transclude></div>
+
+<table ng-if="$ctrl.rowsIsReady">
+
+  <thead>
+  <tr>
+    <th></th>
+    <th ng-repeat="column in $ctrl.columns">
+      {{::column.name}}
+
+      <md-icon class="icon-sort"
+               ng-if="column.sortBy === 'asc'"
+               ng-class="{'icon-sort--active' : $ctrl.isActive(column)}"
+               ng-click="$ctrl.onSort(column)"
+      >arrow_drop_down
+      </md-icon>
+
+      <md-icon class="icon-sort"
+               ng-if="column.sortBy === 'desc'"
+               ng-class="{'icon-sort--active' : $ctrl.isActive(column)}"
+               ng-click="$ctrl.onSort(column)"
+      >arrow_drop_up
+      </md-icon>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr ng-repeat="row in $ctrl.rows track by row.id" class="md-hue-1">
+    <td>{{$index+1}}</td>
+    <td ng-repeat="column in $ctrl.columns" ng-bind="::row[column.rowProp]"></td>
+  </tr>
+  </tbody>
+
+</table>

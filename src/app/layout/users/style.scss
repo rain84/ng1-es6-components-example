@@ -1,0 +1,72 @@
+@import "./../../common";
+
+layout-users {
+
+  .container-hide{
+    display : none;
+  }
+
+  .card {
+
+    &--user-icon {
+      font-size : 4em !important;
+      //color     : grey;
+    }
+
+    p {
+      line-height : 1em;
+      margin      : 5px;
+      @include setVerticalMargin(5px);
+    }
+
+    md-grid-tile {
+      border        : 1px solid;
+      border-radius : 5px;
+      color         : black !important;
+
+      &-header, &-footer {
+        color            : black !important;
+        background-color : lighten(grey, 40) !important;
+      }
+
+      &-footer {
+        > figcaption {
+          flex : 100;
+        }
+      }
+    }
+  }
+
+  .group {
+
+    &-panel {
+      @include setHorizontalMargin(10px);
+      //padding : 5px;
+    }
+
+    .caption {
+      padding : 10px 15px;
+
+      h2 {
+        margin : 0;
+      }
+    }
+
+    md-list {
+      $itemHeight : 95px;
+      max-height : $itemHeight * 6;
+      overflow-y : scroll;
+
+      &-item {
+        height       : $itemHeight;
+        padding-left : 20px;
+
+        .aka {
+          font-style   : italic;
+          padding-left : 20px;
+        }
+      }
+    }
+  }
+
+}
