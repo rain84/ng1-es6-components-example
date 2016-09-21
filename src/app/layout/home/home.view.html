@@ -1,29 +1,41 @@
 <div md-whiteframe="12" layout-padding class="container" flex="auto">
 
   <md-content>
-    <h1 class="text-center">Welcome!</h1>
+    <h1 class="text-center">Здравствуйте!</h1>
 
     <div>
-      My this test work was inspired by next articles:
-      <br>
+      <p>Моё тестовое приложение было вдохновлено следующими статьями.</p>
+      <ul>
+        <li><a href="https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md">"Angular 1 Style Guide" by John Papa</a></li>
+        <li><a href="https://github.com/orizens/angular-es6-styleguide">Angular 1.5 - ES6/ES2015 Style Guide</a></li>
+        <li><a href="https://thinkster.io/angularjs-es6-tutorial#displaying-lists-of-articles">Build an Angular 1.5 application with ES6 and Components</a></li>
+      </ul>
+
       <br>
 
-      1. <a href="https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md">"Angular 1 Style Guide" by John Papa</a>
-      <br>
-      2. <a href="https://github.com/orizens/angular-es6-styleguide">Angular 1.5 - ES6/ES2015 Style Guide</a>
-      <br>
-      3. <a href="https://thinkster.io/angularjs-es6-tutorial#displaying-lists-of-articles">Build an Angular 1.5 application with ES6 and Components</a>
-      <br>
+      <p>Данное приложение отражает мои идеи по созданию SPA на Angular-1 с использованием ES6 и компонентоного подхода.
+         При его написании я прежде всего старался создать удобную модульную структуру, такую, чтобы впоследствии
+         было просто заменить существующие модули либо добавить новые, т.е. легко дорабатывать и расширять приложение.</p>
+
+      <p>Компоненты являются "сердцем" приложения и я постарался их разделить на 2 типа:
+      <ul class="components-descr">
+        <li>
+          <b>1. "layout-components"</b>, которые применяются в качестве HTML-шаблонов при написании роутов.
+                                    Они должны быть использованы в качестве контейнеров для остальных компонентов
+        </li>
+        <li>
+          <b>2. "ui-components"</b>, которые представляют из себя блоки интерфейса, и при этом
+          <ul>
+            <li>реализуют одну чётко выраженную задачу,</li>
+            <li>инкапсулируют сложное поведение</li>
+            <li>предоставляют программисту-пользователю "robust and minimalistic API".</li>
+          </ul>
+        </li>
+      </ul>
+
       <br>
 
-      Of course, the most interesting part in this work is my own vision, how to create common structure, which will be convenient
-      in the subsequent scaling of the application.
-      Components are the heart of application, and I tried to separate them onto 2 types:
-      1) "layout-components" (which are used as a targets in routing) and should be used like containers for other components
-      2) "ui-components", which should be looks like an atomic structures of interface with encapsulation of its own behaviours and API, which should be robust and minimalistic
-      in ideal case.
-
-      Also I created
+      <p>Благодарю за внимание к моему коду. :)</p>
 
     </div>
 
