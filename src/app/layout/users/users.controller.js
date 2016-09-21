@@ -6,37 +6,22 @@ export default class UsersController {
 
     Object.assign( this, { $log, $timeout, $scope } );
 
-    this.isUsersReady = false;
-    this.isNgReady = false;
-
     this.rowsCount = null;
     this.users = [];
     this.usersByGroups = [];
     this.groups = [];
+
     usersMock.getData()
-      .then( data => {
-        this.users = this[prepareUsers]( data );
-
-        this.usersByGroups = _.groupBy( this.users, item => item.group );
-        this.groups = _( this.usersByGroups )
-          .keys()
-          .map( ( item, index )=> ({
-            isChecked : index === 0,
-            name      : item
-          }) )
-          .value();
-
-        this.isUsersReady = true;
-      } );
+      // .then( data => (data.length = 10, data) )
+      .then( this[prepareUsers].bind( this ) )
+    ;
   }
 
   $onInit() {
-    let unwatch = this.$scope.$watch( '$ctrl.rowsCount', ( newVal ) => {
-      if ( _.isNumber( newVal ) ) {
-        this.isNgReady = true;
-        unwatch();
-      }
-    } );
+    let unwatch = this.$scope.$watch(
+      '$ctrl.rowsCount',
+      ( newVal ) => _.isNumber( newVal ) && unwatch()
+    );
   }
 
   $postLink() {
@@ -55,8 +40,8 @@ export default class UsersController {
 
   [prepareUsers]( users ) {
     let date, mm, dd, yyyy;
-
-    return users.map( item => {
+    let usersByGroups, groups;
+    let formatData = item => {
       date = new Date( item.dob );
       mm = date.getMonth() + 1;
       dd = date.getDay();
@@ -68,6 +53,18 @@ export default class UsersController {
       item.dob = `${dd}.${mm}.${yyyy}`;
 
       return item;
-    } );
+    };
+
+    users = users.map( formatData );
+    usersByGroups = _.groupBy( users, item => item.group );
+    groups = _( usersByGroups )
+      .keys()
+      .map( ( item, index )=> ({
+        isChecked : index === 0,
+        name      : item
+      }) )
+      .value();
+
+    Object.assign( this, { users, usersByGroups, groups } );
   }
 }
